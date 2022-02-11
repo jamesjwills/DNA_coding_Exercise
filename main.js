@@ -13,6 +13,7 @@ const mockUpStrand = () => {
   return newStrand;
 };
 
+function pAequorFactory(number, baseArray)
 
 
 
