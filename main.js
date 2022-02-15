@@ -1,6 +1,6 @@
 // Returns a random DNA base
+const dnaBases = ['A', 'T', 'C', 'G'];
 const returnRandBase = () => {
-  const dnaBases = ['A', 'T', 'C', 'G'];
   return dnaBases[Math.floor(Math.random() * 4)];
 };
 
@@ -13,10 +13,20 @@ const mockUpStrand = () => {
   return newStrand;
 };
 
-function pAequorFactory(number, baseArray)
-
-
-
+function pAequorFactory(number, baseArray) {
+  return {
+    specimenNum: number,
+    dna: baseArray,
+    mutate: function() {
+      const selectedBaseIndex = Math.floor(Math.random()*15);    
+      let newBase = returnRandBase();
+      while (this.dna[selectedBaseIndex] === newBase) {
+        newBase = returnRandBase();
+      }
+      this.dna[selectedBaseIndex] = newBase;
+    },
+  }
+}
 
 
 
