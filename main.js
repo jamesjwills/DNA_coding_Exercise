@@ -33,17 +33,47 @@ function pAequorFactory(number, baseArray) {
         if (this['dna'][i] === pAequorX['dna'][i]) {
           matchingBases.push(this['dna'][i]);
         };
-        
-      }
+      };
       console.log(`specimen ${this.specimenNum} and specimen ${pAequorX.specimenNum} have ${matchingBases.length / 15 *100}% DNA in common`);
     },
+    willLikelySurvive: function () {
+      let CGBases = [];
+      for (let i = 0; i < 15; i++) {
+        if (this['dna'][i] === 'C' || this['dna'][i] === 'G') {
+          CGBases.push(this['dna'][i]);
+        };
+      };
+      return CGBases.length / 15 > 0.6;
+    },
+    complementStrand: function () {
+      const replaceWithT = x => {
+        if (x==='T') {
+          return x='A';
+        } else 
+        if (x==='A') {
+          return x='T';
+        } else 
+        if (x==='C') {
+          return x='G';
+        } else
+        if (x==='G') {
+          return x='C';
+        }
+      }
+      return this['dna'].map(replaceWithT);
+    }
   }
 }
 
-let pAequor1 = pAequorFactory(1, mockUpStrand());
-let pAequor2 = pAequorFactory(2, mockUpStrand());
+let survivingInstances = [];
+while (survivingInstances.length < 30) {
+  let instance = pAequorFactory(undefined, mockUpStrand());
+  if (instance.willLikelySurvive() === true) {
+    survivingInstances.push(instance);
+  };
+};
 
+//let pAequor1 = pAequorFactory(1,mockUpStrand())
 //console.log(pAequor1.dna);
-//console.log(pAequor2.dna);
-pAequor1.compareDNA(pAequor2);
+//console.log(pAequor1.complementStrand())
 
